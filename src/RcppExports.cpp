@@ -15,22 +15,36 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// WeightedVoronoi
-Rcpp::List WeightedVoronoi(const Rcpp::NumericVector& inputX, const Rcpp::NumericVector& inputY);
-RcppExport SEXP ComputationalGeometry_WeightedVoronoi(SEXP inputXSEXP, SEXP inputYSEXP) {
+// WeightedVoronoiTest
+Rcpp::List WeightedVoronoiTest(const Rcpp::NumericVector& inputX, const Rcpp::NumericVector& inputY);
+RcppExport SEXP ComputationalGeometry_WeightedVoronoiTest(SEXP inputXSEXP, SEXP inputYSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type inputX(inputXSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type inputY(inputYSEXP);
-    rcpp_result_gen = Rcpp::wrap(WeightedVoronoi(inputX, inputY));
+    rcpp_result_gen = Rcpp::wrap(WeightedVoronoiTest(inputX, inputY));
+    return rcpp_result_gen;
+END_RCPP
+}
+// WeightedVoronoi
+Rcpp::List WeightedVoronoi(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY, const Rcpp::NumericVector& Weights);
+RcppExport SEXP ComputationalGeometry_WeightedVoronoi(SEXP coordXSEXP, SEXP coordYSEXP, SEXP WeightsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordX(coordXSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordY(coordYSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type Weights(WeightsSEXP);
+    rcpp_result_gen = Rcpp::wrap(WeightedVoronoi(coordX, coordY, Weights));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
-    {"ComputationalGeometry_WeightedVoronoi", (DL_FUNC) &ComputationalGeometry_WeightedVoronoi, 2},
+    {"ComputationalGeometry_WeightedVoronoiTest", (DL_FUNC) &ComputationalGeometry_WeightedVoronoiTest, 2},
+    {"ComputationalGeometry_WeightedVoronoi", (DL_FUNC) &ComputationalGeometry_WeightedVoronoi, 3},
     {NULL, NULL, 0}
 };
 

@@ -63,7 +63,7 @@ std::uniform_real_distribution<> randomWeight(0, 50);
 
 //' @export
 // [[Rcpp::export]]
-Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &inputX, const Rcpp::NumericVector &inputY){
+Rcpp::List WeightedVoronoiTest(const Rcpp::NumericVector &inputX, const Rcpp::NumericVector &inputY){
 
     Rcpp::Rcout << "got here 1" << std::endl;
     std::vector<Site_2_Apo> List_Nodes;
