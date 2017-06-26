@@ -60,18 +60,23 @@ std::mt19937 RNG(seed()); //Standard mersenne_twister_engine seeded with rd()
 std::uniform_real_distribution<> randomPoint(0, 30);
 std::uniform_real_distribution<> randomWeight(0, 50);
 
+
 //' @export
 // [[Rcpp::export]]
-Rcpp::List WeightedVoronoi(){
+Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &inputX, const Rcpp::NumericVector &inputY){
 
     Rcpp::Rcout << "got here 1" << std::endl;
     std::vector<Site_2_Apo> List_Nodes;
 
-    for(int i = 0; i<= 20; i++){
-        for(int j = 0; j <= 20;j++)
-        {
-            List_Nodes.push_back(Site_2_Apo(Site_2_Point_2(i+randomPoint(RNG),j+randomPoint(RNG)),Site_2_Weight(randomWeight(RNG))));
-        }
+    // for(int i = 0; i<= 20; i++){
+    //     for(int j = 0; j <= 20;j++)
+    //     {
+    //         List_Nodes.push_back(Site_2_Apo(Site_2_Point_2(i+randomPoint(RNG),j+randomPoint(RNG)),Site_2_Weight(randomWeight(RNG))));
+    //     }
+    // }
+
+    for(int i = 0; i< inputX.size(); i++){
+      List_Nodes.push_back(Site_2_Apo(Site_2_Point_2(double(inputX(i)),double(inputY(i))),Site_2_Weight(randomWeight(RNG))));
     }
 
     VD_AG2 VDA;      //Voronoi Apol
@@ -82,30 +87,44 @@ Rcpp::List WeightedVoronoi(){
     VDA.insert(List_Nodes.begin(),List_Nodes.end());
     double xx = VDA.number_of_faces();
 
-    std::cout << "made VDA object with faces: " << xx << std::endl;
+    Rcpp::Rcout << "made VDA object with faces: " << xx << std::endl;
 
 //    VDA.bounded_faces_iterator f;
     VD_AG2::Bounded_faces_iterator f;
-   std::vector<double> voronoiX;
-   std::vector<double> voronoiY;
+
+
+   typedef std::vector<double> vectorDouble;
+
+   vectorDouble coordX;
+   vectorDouble coordY;
+
+    std::vector<vectorDouble> PolygonX;
+    std::vector<vectorDouble> PolygonY;
     for(f = VDA.bounded_faces_begin(); f != VDA.bounded_faces_end(); f++)
     {
+
         Rcpp::Rcout << "iterating..." << std::endl;
+        coordX.clear();
+        coordY.clear();
         Ccb_halfedge_circulator ec_start = (f)->ccb();
         Ccb_halfedge_circulator ec = ec_start;
         do {
             double x = ((Halfedge_handle)ec)->source()->point().x();
             double y = ((Halfedge_handle)ec)->source()->point().y();
             Rcpp::Rcout << "x: " << x << " y: " << y << std::endl;
-            voronoiX.push_back(x);
-            voronoiY.push_back(y);
+            coordX.push_back(x);
+            coordY.push_back(y);
         } while ( ++ec != ec_start );
+
+        PolygonX.push_back(coordX);
+        PolygonY.push_back(coordY);
+
     }
 
       return(
         Rcpp::List::create(
-          Rcpp::Named("x")=voronoiX,
-          Rcpp::Named("y")=voronoiY
+          Rcpp::Named("x")=PolygonX,
+          Rcpp::Named("y")=PolygonY
         )
       );
 

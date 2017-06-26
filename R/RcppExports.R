@@ -7,7 +7,7 @@ rcpp_hello <- function() {
 }
 
 #' @export
-WeightedVoronoi <- function() {
-    .Call('ComputationalGeometry_WeightedVoronoi', PACKAGE = 'ComputationalGeometry')
+WeightedVoronoi <- function(inputX, inputY) {
+    .Call('ComputationalGeometry_WeightedVoronoi', PACKAGE = 'ComputationalGeometry', inputX, inputY)
 }
 
