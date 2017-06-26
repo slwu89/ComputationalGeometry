@@ -62,13 +62,13 @@ std::uniform_real_distribution<> randomWeight(0, 50);
 
 //' @export
 // [[Rcpp::export]]
-void WeightedVoronoi(){
+Rcpp::List WeightedVoronoi(){
 
     Rcpp::Rcout << "got here 1" << std::endl;
     std::vector<Site_2_Apo> List_Nodes;
 
-    for(int i = 0; i<= 100; i++){
-        for(int j = 0; j <= 100;j++)
+    for(int i = 0; i<= 20; i++){
+        for(int j = 0; j <= 20;j++)
         {
             List_Nodes.push_back(Site_2_Apo(Site_2_Point_2(i+randomPoint(RNG),j+randomPoint(RNG)),Site_2_Weight(randomWeight(RNG))));
         }
@@ -86,7 +86,8 @@ void WeightedVoronoi(){
 
 //    VDA.bounded_faces_iterator f;
     VD_AG2::Bounded_faces_iterator f;
-//    std::vector<CGAL::QPointF> poly;
+   std::vector<double> voronoiX;
+   std::vector<double> voronoiY;
     for(f = VDA.bounded_faces_begin(); f != VDA.bounded_faces_end(); f++)
     {
         Rcpp::Rcout << "iterating..." << std::endl;
@@ -96,9 +97,16 @@ void WeightedVoronoi(){
             double x = ((Halfedge_handle)ec)->source()->point().x();
             double y = ((Halfedge_handle)ec)->source()->point().y();
             Rcpp::Rcout << "x: " << x << " y: " << y << std::endl;
+            voronoiX.push_back(x);
+            voronoiY.push_back(y);
         } while ( ++ec != ec_start );
     }
 
-
+      return(
+        Rcpp::List::create(
+          Rcpp::Named("x")=voronoiX,
+          Rcpp::Named("y")=voronoiY
+        )
+      );
 
 }
