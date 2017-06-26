@@ -6,3 +6,8 @@ rcpp_hello <- function() {
     .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
 }
 
+#' @export
+WeightedVoronoi <- function() {
+    invisible(.Call('ComputationalGeometry_WeightedVoronoi', PACKAGE = 'ComputationalGeometry'))
+}
+
