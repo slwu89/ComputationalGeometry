@@ -6,11 +6,6 @@ rcpp_hello <- function() {
     .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
 }
 
-#' @export
-WeightedVoronoiTest <- function(inputX, inputY) {
-    .Call('ComputationalGeometry_WeightedVoronoiTest', PACKAGE = 'ComputationalGeometry', inputX, inputY)
-}
-
 #' Weighted Voronoi Diagram
 #'
 #' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
