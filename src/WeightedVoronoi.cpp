@@ -84,7 +84,7 @@ Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::Numeri
   Voronoi.clear();
   Voronoi.insert(Nodes.begin(),Nodes.end()); // insert nodes
 
-  double xx = Voronoi.number_of_faces();
+  int xx = Voronoi.number_of_faces();
   Rcpp::Rcout << "made VDA object with faces: " << xx << std::endl;
 
 
