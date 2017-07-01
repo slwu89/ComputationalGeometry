@@ -9,7 +9,7 @@ library(ComputationalGeometry)
 x = runif(n = 30,min = 0,max = 50)
 y = runif(n = 30,min = 0,max = 50)
 # weights = rlnorm(n = 30)
-weights = rep(1,times=30)
+weights = rep(0,times=30)
 
 wvd = ComputationalGeometry::WeightedVoronoi(coordX = x,coordY = y,Weights = weights)
 

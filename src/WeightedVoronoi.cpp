@@ -117,86 +117,10 @@ Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::Numeri
 
   }
 
-
-  // hyperbola origin and targets
-  std::vector<Rcpp::List> hyperbolaSources;
-  std::vector<Rcpp::List> hyperbolaTargets;
-
-  // To prevent edges from being considered from both sides, we collect the
-  // already visited ones in a set.
-  std::set<Halfedge> edges;
-  Halfedge currHalfedge, currOppositeHalfedge;
-  // the two sites adjacent to a halfedge
-  ApolloniusGraph_Site2 origin, neighbor;
-  // the two endpoints of a halfedge
-  Site2_Point2 source, target;
-
-  int numEdges = 0;
-  int numHalfedges = 0;
-
-  for (Face_iterator face_it = Voronoi.faces_begin();
-    face_it != Voronoi.faces_end(); face_it++) {
-    Face currFace = *face_it;
-    origin = currFace.dual()->site();
-
-    Ccb_halfedge_circulator edge_ci, edge_ci_end;
-    edge_ci = edge_ci_end = currFace.ccb();
-    do {
-      numHalfedges++;
-      currHalfedge = *edge_ci;
-      currOppositeHalfedge = *currHalfedge.opposite();
-      // the current edge hasn't been visited yet
-      if (edges.find(currOppositeHalfedge) == edges.end()) {
-        numEdges++;
-
-        neighbor = currOppositeHalfedge.face()->dual()->site();
-
-        if (!currHalfedge.has_source() || !currHalfedge.has_target()) {
-          continue;
-        }
-
-        // fprintf(intersectionsFile, "%.30f %.30f %.30f %.30f %.30f %.30f ",
-        //   origin.point().x(), origin.point().y(), origin.weight(),
-        //   neighbor.point().x(), neighbor.point().y(), neighbor.weight());
-
-        Rcpp::List hyperbolaSource;
-
-        // the first endpoint of the hyperbola
-        if (currHalfedge.has_source()) {
-          source = (*currHalfedge.source()).point();
-          hyperbolaSource = Rcpp::List::create(Rcpp::Named("sourceX") = source.x(), Rcpp::Named("sourceY") = source.y());
-        } else {
-          hyperbolaSource = Rcpp::List::create(Rcpp::Named("sourceX") = R_NilValue, Rcpp::Named("sourceY") = R_NilValue);
-        }
-
-        hyperbolaSources.push_back(hyperbolaSource);
-
-        Rcpp::List hyperbolaTarget;
-
-        // the second endpoint of the hyperbola
-        if (currHalfedge.has_target()) {
-          target = (*currHalfedge.target()).point();
-          hyperbolaTarget = Rcpp::List::create(Rcpp::Named("targetX") = target.x(), Rcpp::Named("targetY") = target.y());
-        } else {
-          hyperbolaTarget = Rcpp::List::create(Rcpp::Named("targetX") = R_NilValue, Rcpp::Named("targetY") = R_NilValue);
-        }
-
-        hyperbolaTargets.push_back(hyperbolaTarget);
-
-      }
-      edges.insert(currHalfedge);
-    } while(++edge_ci != edge_ci_end);
-  }
-
-
-
-
   return(
     Rcpp::List::create(
       Rcpp::Named("x")=PolygonX,
-      Rcpp::Named("y")=PolygonY,
-      Rcpp::Named("hyperbolaSources") = hyperbolaSources,
-      Rcpp::Named("hyperbolaTargets") = hyperbolaTargets
+      Rcpp::Named("y")=PolygonY
     )
   );
 }
