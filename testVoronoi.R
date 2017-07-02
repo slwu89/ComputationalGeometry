@@ -49,7 +49,8 @@ for(i in 1:length(bvd$segments)){
 # weights = rbeta(n = 30,shape1 = 2,shape2 = 5)
 weights = rlnorm(n = 30)
 bwvd = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weights,minX = floor(min(x)),minY = floor(min(y)),maxX = ceiling(max(x)),maxY = ceiling(max(y)))
-plot(x,y,pch=16,cex=0.75,xlim=c(floor(min(x)),ceiling(max(x))),ylim=c(floor(min(y)),ceiling(max(y))))
+plot(x,y,pch=16,cex=0.75,xlim=c(floor(min(x)-1),ceiling(max(x))+1),ylim=c(floor(min(y)-1),ceiling(max(y)+1)))
+text(x,y,labels=as.character(round(weights,3)),cex=0.75,adj=c(0.95,0))
 for(i in 1:length(bwvd$segments)){
   if(any(is.nan(bwvd$segments[[i]]))){
     next()
