@@ -5,6 +5,7 @@
 #######################################
 
 library(ComputationalGeometry)
+library(viridis)
 
 x = runif(n = 30,min = 0,max = 50)
 y = runif(n = 30,min = 0,max = 50)
@@ -17,7 +18,6 @@ plot(x,y,pch=16,cex=0.75,xlim=c(-2,50),ylim=c(-2,50))
 for(i in 1:length(wvd$x)){
   polygon(x = wvd$x[[i]],y = wvd$y[[i]])
 }
-
 
 
 xBound = c(0,1,0)
@@ -45,12 +45,12 @@ for(i in 1:length(bvd$segments)){
 }
 
 
-
 # weights = rbeta(n = 30,shape1 = 2,shape2 = 5)
 weights = rlnorm(n = 30)
 bwvd = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weights,minX = floor(min(x)),minY = floor(min(y)),maxX = ceiling(max(x)),maxY = ceiling(max(y)))
+par(bg="grey80")
 plot(x,y,pch=16,cex=0.75,xlim=c(floor(min(x)-1),ceiling(max(x))+1),ylim=c(floor(min(y)-1),ceiling(max(y)+1)))
-text(x,y,labels=as.character(round(weights,3)),cex=0.75,adj=c(0.95,0))
+text(x,y,labels=as.character(round(weights,3)),cex=0.75,adj=c(0.95,0),col = viridis(length(weights),option = "D",end=0.7)[rank(weights)])
 for(i in 1:length(bwvd$segments)){
   if(any(is.nan(bwvd$segments[[i]]))){
     next()
@@ -58,3 +58,4 @@ for(i in 1:length(bwvd$segments)){
     lines(x = c(bwvd$segments[[i]][1],bwvd$segments[[i]][3]),y = c(bwvd$segments[[i]][2],bwvd$segments[[i]][4]))
   }
 }
+par(bg="white")
