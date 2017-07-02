@@ -2,7 +2,10 @@ Package: ComputationalGeometry
 Type: Package
 Title: Provide R access to fast algorithms for computational geometry.
 Version: 0.1.0
-Authors@R: person(given = "Sean", family = "Wu", email = "slwu89@berkeley.edu", role = c("cre","aut"))
+Authors@R: c(
+  person(given = "Sean", family = "Wu", email = "slwu89@berkeley.edu", role = c("cre","aut"))
+  person(given = "Yuji", family = "Saikai", email = "slwu89@berkeley.edu", role = c("ctb"))
+)
 Description: Provide access from R to the CGAL C++ library of algorithms for computational geometry, especially for spatial analysis.
 License: MIT License
 Encoding: UTF-8

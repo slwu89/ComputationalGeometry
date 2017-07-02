@@ -14,8 +14,8 @@
 #' @param maxY coordinates of bounding rectangle
 #'
 #' @export
-BoundedWeightedVoronoi <- function(coordX, coordY, Weights, minX, minY, maxX, maxY) {
-    .Call('ComputationalGeometry_BoundedWeightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
+BoundedUnweightedVoronoi <- function(coordX, coordY, minX, minY, maxX, maxY) {
+    .Call('ComputationalGeometry_BoundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, minX, minY, maxX, maxY)
 }
 
 #' @export

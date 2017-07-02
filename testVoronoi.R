@@ -24,3 +24,6 @@ for(j in 1:length(wvd$hyperbolaSources)){
         col = "steelblue")
 }
 
+xBound = c(0,1,0)
+yBound = c(0,1,1)
+bvd = ComputationalGeometry::BoundedUnweightedVoronoi(coordX = xBound,coordY = yBound,minX = -1,minY = -1,maxX = 2,maxY = 2)
