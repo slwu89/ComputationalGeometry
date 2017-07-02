@@ -82,7 +82,7 @@ typedef K::Iso_rectangle_2 Iso_rectangle_2;
 typedef K::Segment_2 Segment_2;
 typedef K::Ray_2 Ray_2;
 typedef K::Line_2 Line_2;
-typedef CGAL::Delaunay_triangulation_2<K> Delaunay_triangulation_2;
+typedef CGAL::Delaunay_triangulation_2<KernelExact> Delaunay_triangulation_2;
 
 //A class to recover Voronoi diagram from stream.
 //Rays, lines and segments are cropped to a rectangle
@@ -163,10 +163,10 @@ Rcpp::List BoundedWeightedVoronoi(
 
   }
 
-
   return(
     Rcpp::List::create(
       Rcpp::Named("segments")=segmentToR
     )
   );
+
 }

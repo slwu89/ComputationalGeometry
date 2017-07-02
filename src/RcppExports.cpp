@@ -38,16 +38,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_hello
-List rcpp_hello();
-RcppExport SEXP ComputationalGeometry_rcpp_hello() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello());
-    return rcpp_result_gen;
-END_RCPP
-}
 // WeightedVoronoi
 Rcpp::List WeightedVoronoi(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY, const Rcpp::NumericVector& Weights);
 RcppExport SEXP ComputationalGeometry_WeightedVoronoi(SEXP coordXSEXP, SEXP coordYSEXP, SEXP WeightsSEXP) {
@@ -61,12 +51,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// rcpp_hello
+List rcpp_hello();
+RcppExport SEXP ComputationalGeometry_rcpp_hello() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(rcpp_hello());
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"ComputationalGeometry_BoundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedUnweightedVoronoi, 6},
     {"ComputationalGeometry_BoundedWeightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedWeightedVoronoi, 7},
-    {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
     {"ComputationalGeometry_WeightedVoronoi", (DL_FUNC) &ComputationalGeometry_WeightedVoronoi, 3},
+    {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
     {NULL, NULL, 0}
 };
 
