@@ -125,6 +125,7 @@ Rcpp::List BoundedWeightedVoronoi(
   Iso_rectangle_2 bbox(minX,minY,maxX,maxY);
   Cropped_voronoi_from_delaunay vor(bbox);
 
+  // turn Voronoi -> Delaunay_triangulation_2 -> then call Delaunay_triangulation_2.draw_dual() with vor as input
   Voronoi.dual().draw_dual(vor);
 
   int size = vor.m_cropped_vd.size();

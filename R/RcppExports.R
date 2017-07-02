@@ -31,6 +31,11 @@ BoundedWeightedVoronoi <- function(coordX, coordY, Weights, minX, minY, maxX, ma
     .Call('ComputationalGeometry_BoundedWeightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
 }
 
+#' @export
+rcpp_hello <- function() {
+    .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
+}
+
 #' Weighted Voronoi Diagram
 #'
 #' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
@@ -40,12 +45,7 @@ BoundedWeightedVoronoi <- function(coordX, coordY, Weights, minX, minY, maxX, ma
 #' @param Weights numeric vector of weights
 #'
 #' @export
-WeightedVoronoi <- function(coordX, coordY, Weights) {
-    .Call('ComputationalGeometry_WeightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights)
-}
-
-#' @export
-rcpp_hello <- function() {
-    .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
+UnboundedUnweightedVoronoi <- function(coordX, coordY) {
+    .Call('ComputationalGeometry_UnboundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY)
 }
 

@@ -2,7 +2,7 @@
 
 export(BoundedUnweightedVoronoi)
 export(BoundedWeightedVoronoi)
-export(WeightedVoronoi)
+export(UnboundedUnweightedVoronoi)
 export(hello)
 export(rcpp_hello)
 importFrom(Rcpp,evalCpp)

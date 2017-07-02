@@ -54,7 +54,6 @@ typedef ApolloniusGraph_VoronoiDiagram::Face_iterator             Face_iterator;
 typedef ApolloniusGraph_VoronoiDiagram::Ccb_halfedge_circulator   Ccb_halfedge_circulator;
 
 typedef std::vector<double>             vectorDouble;
-typedef std::vector<vectorDouble>       vectorPolygon;
 
 //' Weighted Voronoi Diagram
 //'
@@ -66,9 +65,10 @@ typedef std::vector<vectorDouble>       vectorPolygon;
 //'
 //' @export
 // [[Rcpp::export]]
-Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::NumericVector &coordY, const Rcpp::NumericVector &Weights){
+Rcpp::List UnboundedUnweightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::NumericVector &coordY){
 
-  if((coordX.size()!=coordY.size()) || (coordY.size()!=Weights.size())){
+  // if((coordX.size()!=coordY.size()) || (coordY.size()!=Weights.size())){
+  if(coordX.size()!=coordY.size()){
     Rcpp::stop("all input vectors must be of same length");
   }
 
@@ -76,7 +76,8 @@ Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::Numeri
   std::vector<ApolloniusGraph_Site2> Nodes;
 
   for(int ix=0; ix<coordX.size(); ix++){
-    Nodes.push_back(ApolloniusGraph_Site2(Site2_Point2(double(coordX.at(ix)),double(coordY.at(ix))),Site2_Weight(double(Weights.at(ix)))));
+    Nodes.push_back(ApolloniusGraph_Site2(Site2_Point2(double(coordX.at(ix)),double(coordY.at(ix)))));
+    // Nodes.push_back(ApolloniusGraph_Site2(Site2_Point2(double(coordX.at(ix)),double(coordY.at(ix))),Site2_Weight(double(Weights.at(ix)))));
   }
 
   // generate Voronoi diagram
@@ -84,43 +85,38 @@ Rcpp::List WeightedVoronoi(const Rcpp::NumericVector &coordX, const Rcpp::Numeri
   Voronoi.clear();
   Voronoi.insert(Nodes.begin(),Nodes.end()); // insert nodes
 
-  int xx = Voronoi.number_of_faces();
-  Rcpp::Rcout << "made VDA object with faces: " << xx << std::endl;
-
-
   // extract polygons from Voronoi diagram
   ApolloniusGraph_VoronoiDiagram::Bounded_faces_iterator faces_iterator;
 
-  vectorDouble faceX;
-  vectorDouble faceY;
+  vectorDouble edge(4);
 
-  vectorPolygon PolygonX;
-  vectorPolygon PolygonY;
+  std::vector<vectorDouble> boundedFaceEdges;
 
   for(faces_iterator = Voronoi.bounded_faces_begin(); faces_iterator != Voronoi.bounded_faces_end(); faces_iterator++){
-
-    faceX.clear();
-    faceY.clear();
 
     Ccb_halfedge_circulator ec_start = (faces_iterator)->ccb();
     Ccb_halfedge_circulator ec = ec_start;
 
     do {
-        double x = ((Halfedge_handle)ec)->source()->point().x();
-        double y = ((Halfedge_handle)ec)->source()->point().y();
-        faceX.push_back(x);
-        faceY.push_back(y);
-    } while ( ++ec != ec_start );
+        edge.clear();
 
-    PolygonX.push_back(faceX);
-    PolygonY.push_back(faceY);
+        double xS = ((Halfedge_handle)ec)->source()->point().x();
+        edge.push_back(xS);
+        double yS = ((Halfedge_handle)ec)->source()->point().y();
+        edge.push_back(yS);
+        double xT = ((Halfedge_handle)ec)->target()->point().x();
+        edge.push_back(xT);
+        double yT = ((Halfedge_handle)ec)->target()->point().y();
+        edge.push_back(yT);
+
+        boundedFaceEdges.push_back(edge);
+    } while ( ++ec != ec_start );
 
   }
 
   return(
     Rcpp::List::create(
-      Rcpp::Named("x")=PolygonX,
-      Rcpp::Named("y")=PolygonY
+      Rcpp::Named("boundedFaceEdges")=boundedFaceEdges
     )
   );
 }
