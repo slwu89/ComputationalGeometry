@@ -114,9 +114,36 @@ Rcpp::List UnboundedUnweightedVoronoi(const Rcpp::NumericVector &coordX, const R
 
   }
 
+  vectorDouble sourceOrTarget(2);
+  std::vector<vectorDouble> unboundedEdges;
+
+  ApolloniusGraph_VoronoiDiagram::Unbounded_halfedges_iterator  unboundIt;
+  for(unboundIt = Voronoi.unbounded_halfedges_begin(); unboundIt != Voronoi.unbounded_halfedges_end(); unboundIt++){
+
+    sourceOrTarget.clear();
+
+    if(unboundIt->has_source()){
+      double x = unboundIt->source()->point().x();
+      double y = unboundIt->source()->point().y();
+      sourceOrTarget.push_back(x);
+      sourceOrTarget.push_back(y);
+    }
+
+    if(unboundIt->has_target()){
+      double x = unboundIt->target()->point().x();
+      double y = unboundIt->target()->point().y();
+      sourceOrTarget.push_back(x);
+      sourceOrTarget.push_back(y);
+    }
+
+    unboundedEdges.push_back(sourceOrTarget);
+
+  }
+
   return(
     Rcpp::List::create(
-      Rcpp::Named("boundedFaceEdges")=boundedFaceEdges
+      Rcpp::Named("boundedFaceEdges")=boundedFaceEdges,
+      Rcpp::Named("unboundedEdges")=unboundedEdges
     )
   );
 }

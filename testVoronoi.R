@@ -18,6 +18,9 @@ plot(x,y,pch=16,cex=0.75,xlim=c(-2,50),ylim=c(-2,50))
 for(i in 1:length(wvd$boundedFaceEdges)){
   lines(x = c(wvd$boundedFaceEdges[[i]][1],wvd$boundedFaceEdges[[i]][3]),y = c(wvd$boundedFaceEdges[[i]][2],wvd$boundedFaceEdges[[i]][4]))
 }
+for(i in 1:length(wvd$unboundedEdges)){
+  points(x = wvd$unboundedEdges[[i]][1],y = wvd$unboundedEdges[[i]][2],pch=16,col="red",cex=0.75)
+}
 
 
 xBound = c(0,1,0)
