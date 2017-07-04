@@ -124,6 +124,14 @@ for(i in 1:length(voronoiSame$segments)){
 
 par(mfrow=c(1,1))
 
-# voronoi treemap test
-ComputationalGeometry::voronoiTreemap(coordX = x,coordY = y,Weights = weightsLogNorm,minX = minX,minY = minY,maxX = maxX,maxY = maxY)
+# voronoi treemap
+nPts = 1000
+x = runif(n = nPts,min = 0,max = 100)
+y = runif(n = nPts,min = 0,max = 100)
+minX = min(x)-0.01
+minY = min(y)-0.01
+maxX = max(x)+0.01
+maxY = max(y)+0.01
+weightsBeta = rbeta(n = nPts,shape1 = 0.25,shape2 = 0.25)
+ComputationalGeometry::voronoiTreemap(coordX = x,coordY = y,Weights = weightsBeta,minX = minX,minY = minY,maxX = maxX,maxY = maxY)
 

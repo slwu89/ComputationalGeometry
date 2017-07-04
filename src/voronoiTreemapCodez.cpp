@@ -36,6 +36,14 @@ typedef CGAL::Apollonius_site_2<K>           Site_2;
 typedef Site_2::Point_2                      Apollonius_Point_2;
 typedef Site_2::Weight                       Apollonius_Weight;
 
+// output containers
+typedef std::vector<double> vertex; // hold vertex
+typedef std::vector<vertex> allVertices; // hold all vertices
+typedef std::vector<Segment_2> Segment_2_Vector; // hold all segments
+typedef std::vector<double> segment;
+typedef std::vector<segment> allSegments;
+typedef std::vector<allSegments> SegmentsByVertexToR;
+
 
 //A class to recover Voronoi diagram from stream.
 struct Cropped_voronoi_from_apollonius{
@@ -104,33 +112,73 @@ Rcpp::List voronoiTreemap(
 
   Cropped_voronoi_from_apollonius vor(bbox);
 
+  // initalize output containers
+  vertex vertexContainer;
+  allVertices verticesContainer;
+  Segment_2_Vector segment_2_Container;
+  segment segmentContainer;
+  allSegments segmentsContainer;
+  SegmentsByVertexToR allSegmentsContainer;
+
+  Rcpp::Rcout << "i am ready to extract Voronoi edges" << std::endl;
+
   // iterate to extract Voronoi diagram edges around each vertex
   Apollonius_graph::Finite_vertices_iterator vit;
   for (vit = ApolloniusGraph.finite_vertices_begin();
        vit != ApolloniusGraph.finite_vertices_end();
        ++vit) {
-      Rcpp::Rcout << "Vertex ";
-      Rcpp::Rcout << vit->site().point();
-      Rcpp::Rcout << std::endl;
+
+      vertexContainer.clear();
+      vertexContainer.push_back(vit->site().point().x());
+      vertexContainer.push_back(vit->site().point().y());
+      verticesContainer.push_back(vertexContainer);
+      // Rcpp::Rcout << "Vertex ";
+      // Rcpp::Rcout << vit->site().point();
+      // Rcpp::Rcout << std::endl;
+
       Apollonius_graph::Edge_circulator ec = ApolloniusGraph.incident_edges(vit), done(ec);
       if (ec != 0) {
           do {
               ApolloniusGraph.draw_dual_edge(*ec, vor);
-              // std::cout << "Edge\n";
           } while(++ec != done);
       }
-      //print the cropped Voronoi diagram edges as segments
-      std::copy(vor.m_cropped_vd.begin(),vor.m_cropped_vd.end(),
-                std::ostream_iterator<Segment_2>(std::cout,"\n"));
-      vor.reset();
+      // print the cropped Voronoi diagram edges as segments
+      int size = vor.m_cropped_vd.size();
+      std::vector<Segment_2> segment_2_Container(size);
+      std::copy(vor.m_cropped_vd.begin(),vor.m_cropped_vd.end(),segment_2_Container.begin());
+      // segment_2_Container.clear();
+      // std::copy(vor.m_cropped_vd.begin(),vor.m_cropped_vd.end(),
+      //           std::ostream_iterator<Segment_2>(std::cout,"\n"));
+
+      // fill up segmentsContainer
+      segmentsContainer.clear();
+      for(auto it = segment_2_Container.begin(); it != segment_2_Container.end(); it++){
+
+        segmentContainer.clear();
+        segmentContainer.push_back(it->point(0).x());
+        segmentContainer.push_back(it->point(0).y());
+        segmentContainer.push_back(it->point(1).x());
+        segmentContainer.push_back(it->point(1).y());
+        segmentsContainer.push_back(segmentContainer);
+
+      }
+
+      // put in outermost segment holder thingy.
+      allSegmentsContainer.push_back(segmentsContainer);
+
   }
 
   //extract the entire cropped Voronoi diagram
   // ApolloniusGraph.draw_dual(vor);
 
+  vor.reset();
+  Rcpp::Rcout << "i am ready to dump output" << std::endl;
+
   return(
     Rcpp::List::create(
-      Rcpp::Named("out")=0
+      Rcpp::Named("debug")=1,
+      Rcpp::Named("vertices")=verticesContainer,
+      Rcpp::Named("segments")=segmentsContainer
     )
   );
 }
