@@ -48,6 +48,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// voronoiTreemap
+Rcpp::List voronoiTreemap(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY, const Rcpp::NumericVector& Weights, const double& minX, const double& minY, const double& maxX, const double& maxY);
+RcppExport SEXP ComputationalGeometry_voronoiTreemap(SEXP coordXSEXP, SEXP coordYSEXP, SEXP WeightsSEXP, SEXP minXSEXP, SEXP minYSEXP, SEXP maxXSEXP, SEXP maxYSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordX(coordXSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordY(coordYSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type Weights(WeightsSEXP);
+    Rcpp::traits::input_parameter< const double& >::type minX(minXSEXP);
+    Rcpp::traits::input_parameter< const double& >::type minY(minYSEXP);
+    Rcpp::traits::input_parameter< const double& >::type maxX(maxXSEXP);
+    Rcpp::traits::input_parameter< const double& >::type maxY(maxYSEXP);
+    rcpp_result_gen = Rcpp::wrap(voronoiTreemap(coordX, coordY, Weights, minX, minY, maxX, maxY));
+    return rcpp_result_gen;
+END_RCPP
+}
 // UnboundedUnweightedVoronoi
 Rcpp::List UnboundedUnweightedVoronoi(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY);
 RcppExport SEXP ComputationalGeometry_UnboundedUnweightedVoronoi(SEXP coordXSEXP, SEXP coordYSEXP) {
@@ -65,6 +82,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"ComputationalGeometry_BoundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedUnweightedVoronoi, 6},
     {"ComputationalGeometry_BoundedWeightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedWeightedVoronoi, 7},
     {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
+    {"ComputationalGeometry_voronoiTreemap", (DL_FUNC) &ComputationalGeometry_voronoiTreemap, 7},
     {"ComputationalGeometry_UnboundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_UnboundedUnweightedVoronoi, 2},
     {NULL, NULL, 0}
 };

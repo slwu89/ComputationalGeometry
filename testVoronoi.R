@@ -1,19 +1,24 @@
 #######################################
 #
-# Sean Wu
+# Sean Wu & Yuji Saikai
+# Tests for ComputationalGeometry
+# July 1, 2017
 #
 #######################################
 
 library(ComputationalGeometry)
+library(viridisLite)
 library(viridis)
+
+
+#######################################
+# Unweighted Voronoi Tests
+#######################################
 
 x = runif(n = 30,min = 0,max = 50)
 y = runif(n = 30,min = 0,max = 50)
-# weights = rlnorm(n = 30)
-weights = rep(0,times=30)
 
 wvd = ComputationalGeometry::UnboundedUnweightedVoronoi(coordX = x,coordY = y)
-
 plot(x,y,pch=16,cex=0.75,xlim=c(-2,50),ylim=c(-2,50))
 for(i in 1:length(wvd$boundedFaceEdges)){
   lines(x = c(wvd$boundedFaceEdges[[i]][1],wvd$boundedFaceEdges[[i]][3]),y = c(wvd$boundedFaceEdges[[i]][2],wvd$boundedFaceEdges[[i]][4]))
@@ -22,7 +27,7 @@ for(i in 1:length(wvd$unboundedEdges)){
   points(x = wvd$unboundedEdges[[i]][1],y = wvd$unboundedEdges[[i]][2],pch=16,col="red",cex=0.75)
 }
 
-
+# bounded unweighted voronoi
 xBound = c(0,1,0)
 yBound = c(0,1,1)
 bvd = ComputationalGeometry::BoundedUnweightedVoronoi(coordX = xBound,coordY = yBound,minX = -1,minY = -1,maxX = 2,maxY = 2)
@@ -35,10 +40,9 @@ for(i in 1:length(bvd$segments)){
   }
 }
 
-
-
+# bounded unweighted voronoi
 bvd = ComputationalGeometry::BoundedUnweightedVoronoi(coordX = x,coordY = y,minX = floor(min(x)),minY = floor(min(y)),maxX = ceiling(max(x)),maxY = ceiling(max(y)))
-plot(x,y,pch=16,cex=0.75,xlim=c(-2,80),ylim=c(-2,80))
+plot(x,y,pch=16,cex=0.75,xlim=c(0,50),ylim=c(0,50))
 for(i in 1:length(bvd$segments)){
   if(any(is.nan(bvd$segments[[i]]))){
     next()
@@ -48,17 +52,78 @@ for(i in 1:length(bvd$segments)){
 }
 
 
-# weights = rbeta(n = 30,shape1 = 2,shape2 = 5)
-weights = rlnorm(n = 30)
-bwvd = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weights,minX = floor(min(x)),minY = floor(min(y)),maxX = ceiling(max(x)),maxY = ceiling(max(y)))
-par(bg="grey80")
-plot(x,y,pch=16,cex=0.75,xlim=c(floor(min(x)-1),ceiling(max(x))+1),ylim=c(floor(min(y)-1),ceiling(max(y)+1)))
-text(x,y,labels=as.character(round(weights,3)),cex=0.75,adj=c(0.95,0),col = viridis(length(weights),option = "D",end=0.7)[rank(weights)])
-for(i in 1:length(bwvd$segments)){
-  if(any(is.nan(bwvd$segments[[i]]))){
+#######################################
+# Weighted Voronoi Tests
+#######################################
+
+nPts = 1000
+x = runif(n = nPts,min = 0,max = 100)
+y = runif(n = nPts,min = 0,max = 100)
+minX = min(x)-0.01
+minY = min(y)-0.01
+maxX = max(x)+0.01
+maxY = max(y)+0.01
+weightsBeta = rbeta(n = nPts,shape1 = 0.25,shape2 = 0.25)
+weightsLogNorm = rlnorm(n = nPts)
+weightsExp = rexp(n = nPts)
+weightsSame = rep(x = 1,times = nPts)
+voronoiBeta = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weightsBeta,
+                                                            minX = minX,minY = minY,
+                                                            maxX = maxX,maxY = maxY)
+voronoiLogNorm = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weightsLogNorm,
+                                                            minX = minX,minY = minY,
+                                                            maxX = maxX,maxY = maxY)
+voronoiExp = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weightsExp,
+                                                               minX = minX,minY = minY,
+                                                               maxX = maxX,maxY = maxY)
+voronoiSame = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weightsSame,
+                                                            minX = minX,minY = minY,
+                                                            maxX = maxX,maxY = maxY)
+# plot
+par(mfrow=c(2,2))
+
+plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
+     col = viridis(length(weightsBeta),option = "D")[rev(rank(weightsBeta))],main = "Beta-distributed Weights")
+for(i in 1:length(voronoiBeta$segments)){
+  if(any(is.nan(voronoiBeta$segments[[i]]))){
     next()
   } else {
-    lines(x = c(bwvd$segments[[i]][1],bwvd$segments[[i]][3]),y = c(bwvd$segments[[i]][2],bwvd$segments[[i]][4]))
+    lines(x = c(voronoiBeta$segments[[i]][1],voronoiBeta$segments[[i]][3]),y = c(voronoiBeta$segments[[i]][2],voronoiBeta$segments[[i]][4]))
   }
 }
-par(bg="white")
+
+plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
+     col = viridis(length(weightsLogNorm),option = "D")[rev(rank(weightsLogNorm))],main = "Log Normal-distributed Weights")
+for(i in 1:length(voronoiLogNorm$segments)){
+  if(any(is.nan(voronoiLogNorm$segments[[i]]))){
+    next()
+  } else {
+    lines(x = c(voronoiLogNorm$segments[[i]][1],voronoiLogNorm$segments[[i]][3]),y = c(voronoiLogNorm$segments[[i]][2],voronoiLogNorm$segments[[i]][4]))
+  }
+}
+
+plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
+     col = viridis(length(weightsExp),option = "D")[rev(rank(weightsExp))],main = "Exponentially-distributed Weights")
+for(i in 1:length(voronoiExp$segments)){
+  if(any(is.nan(voronoiExp$segments[[i]]))){
+    next()
+  } else {
+    lines(x = c(voronoiExp$segments[[i]][1],voronoiExp$segments[[i]][3]),y = c(voronoiExp$segments[[i]][2],voronoiExp$segments[[i]][4]))
+  }
+}
+
+plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
+     col = viridis(length(weightsSame),option = "D")[rev(rank(weightsSame))],main = "Unweighted")
+for(i in 1:length(voronoiSame$segments)){
+  if(any(is.nan(voronoiSame$segments[[i]]))){
+    next()
+  } else {
+    lines(x = c(voronoiSame$segments[[i]][1],voronoiSame$segments[[i]][3]),y = c(voronoiSame$segments[[i]][2],voronoiSame$segments[[i]][4]))
+  }
+}
+
+par(mfrow=c(1,1))
+
+# voronoi treemap test
+ComputationalGeometry::voronoiTreemap(coordX = x,coordY = y,Weights = weightsLogNorm,minX = minX,minY = minY,maxX = maxX,maxY = maxY)
+

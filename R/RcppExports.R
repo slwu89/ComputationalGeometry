@@ -36,13 +36,25 @@ rcpp_hello <- function() {
     .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
 }
 
-#' Weighted Voronoi Diagram
+#' Voronoi Treemap Algorithm
+#'
+#' See \url{https://www.stat.auckland.ac.nz/~paul/Reports/VoronoiTreemap/voronoiTreeMap.html} for algorithm details.
+#'
+#' @param coordX numeric vector of x coordinates
+#' @param coordY numeric vector of y coordinates
+#' @param Weights numeric vector of weights
+#'
+#' @export
+voronoiTreemap <- function(coordX, coordY, Weights, minX, minY, maxX, maxY) {
+    .Call('ComputationalGeometry_voronoiTreemap', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
+}
+
+#' Unbounded Unweighted Voronoi Diagram
 #'
 #' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
 #'
 #' @param coordX numeric vector of x coordinates
 #' @param coordY numeric vector of y coordinates
-#' @param Weights numeric vector of weights
 #'
 #' @export
 UnboundedUnweightedVoronoi <- function(coordX, coordY) {

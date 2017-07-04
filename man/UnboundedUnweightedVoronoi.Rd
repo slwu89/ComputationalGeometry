@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{UnboundedUnweightedVoronoi}
 \alias{UnboundedUnweightedVoronoi}
-\title{Weighted Voronoi Diagram}
+\title{Unbounded Unweighted Voronoi Diagram}
 \usage{
 UnboundedUnweightedVoronoi(coordX, coordY)
 }
@@ -10,8 +10,6 @@ UnboundedUnweightedVoronoi(coordX, coordY)
 \item{coordX}{numeric vector of x coordinates}
 
 \item{coordY}{numeric vector of y coordinates}
-
-\item{Weights}{numeric vector of weights}
 }
 \description{
 Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
