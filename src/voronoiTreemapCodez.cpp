@@ -120,7 +120,7 @@ Rcpp::List voronoiTreemap(
   allSegments segmentsContainer;
   SegmentsByVertexToR allSegmentsContainer;
 
-  Rcpp::Rcout << "i am ready to extract Voronoi edges" << std::endl;
+  // Rcpp::Rcout << "i am ready to extract Voronoi edges" << std::endl;
 
   // iterate to extract Voronoi diagram edges around each vertex
   Apollonius_graph::Finite_vertices_iterator vit;
@@ -172,7 +172,7 @@ Rcpp::List voronoiTreemap(
   // ApolloniusGraph.draw_dual(vor);
 
   vor.reset();
-  Rcpp::Rcout << "i am ready to dump output" << std::endl;
+  // Rcpp::Rcout << "i am ready to dump output" << std::endl;
 
   return(
     Rcpp::List::create(
