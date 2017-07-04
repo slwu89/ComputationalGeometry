@@ -55,13 +55,12 @@ typedef ApolloniusGraph_VoronoiDiagram::Ccb_halfedge_circulator   Ccb_halfedge_c
 
 typedef std::vector<double>             vectorDouble;
 
-//' Weighted Voronoi Diagram
+//' Unbounded Unweighted Voronoi Diagram
 //'
 //' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
 //'
 //' @param coordX numeric vector of x coordinates
 //' @param coordY numeric vector of y coordinates
-//' @param Weights numeric vector of weights
 //'
 //' @export
 // [[Rcpp::export]]
