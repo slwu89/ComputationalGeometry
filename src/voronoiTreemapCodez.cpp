@@ -6,12 +6,6 @@
 //
 ////////////////////////////////////////////////////
 
-// #include <stdio.h>
-// #include <iostream>
-// #include <fstream>
-// #include <cassert>
-// #include <iterator>
-
 #include <Rcpp.h>
 
 // the number type
@@ -176,9 +170,10 @@ Rcpp::List voronoiTreemap(
 
   return(
     Rcpp::List::create(
-      Rcpp::Named("debug")=1,
+      Rcpp::Named("generatorX")=coordX,
+      Rcpp::Named("generatorY")=coordY,
       Rcpp::Named("vertices")=verticesContainer,
-      Rcpp::Named("segments")=segmentsContainer
+      Rcpp::Named("segments")=allSegmentsContainer
     )
   );
 }
