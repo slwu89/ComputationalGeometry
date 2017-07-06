@@ -56,6 +56,33 @@ for(i in 1:length(bvd$segments)){
 # Weighted Voronoi Tests
 #######################################
 
+nPts = 50
+x = runif(n = nPts,min = 0,max = 100)
+y = runif(n = nPts,min = 0,max = 100)
+minX = min(x)-0.01
+minY = min(y)-0.01
+maxX = max(x)+0.01
+maxY = max(y)+0.01
+weights = rnorm(n = nPts,mean = 0,sd = 10)
+
+voronoiGaussian = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weights,
+                                                            minX = minX,minY = minY,
+                                                            maxX = maxX,maxY = maxY)
+
+plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
+     col = viridis(length(weights),option = "D",end = 0.7)[factor(weights)],main = "Gaussian-distributed Weights")
+text(x,y,labels = round(weights,2),col = viridis(length(weights),option = "D",end = 0.7)[factor(weights)],pos = 1)
+for(i in 1:length(voronoiGaussian$segments)){
+  if(any(is.nan(voronoiGaussian$segments[[i]]))){
+    # points(x = c(voronoiGaussian$segments[[i]][1],voronoiGaussian$segments[[i]][2]),pch=16,cex=0.75,col="black")
+    next()
+  } else {
+    lines(x = c(voronoiGaussian$segments[[i]][1],voronoiGaussian$segments[[i]][3]),
+          y = c(voronoiGaussian$segments[[i]][2],voronoiGaussian$segments[[i]][4]))
+  }
+}
+
+
 nPts = 1000
 x = runif(n = nPts,min = 0,max = 100)
 y = runif(n = nPts,min = 0,max = 100)
@@ -123,34 +150,3 @@ for(i in 1:length(voronoiSame$segments)){
 }
 
 par(mfrow=c(1,1))
-
-# # voronoi treemap
-# nPts = 200
-# x = runif(n = nPts,min = 0,max = 100)
-# y = runif(n = nPts,min = 0,max = 100)
-# minX = min(x)-0.01
-# minY = min(y)-0.01
-# maxX = max(x)+0.01
-# maxY = max(y)+0.01
-# # weightsBeta = rep(1,times = nPts)
-# weightsBeta = rbeta(n = nPts,shape1 = 0.25,shape2 = 0.25)
-# voronoiOut = ComputationalGeometry::voronoiTreemap(coordX = x,coordY = y,Weights = weightsBeta,minX = minX,minY = minY,maxX = maxX,maxY = maxY)
-#
-# plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),col="red")
-# points(x = matrix(data=unlist(voronoiOut$vertices),ncol=2,byrow=TRUE),pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
-#        col = viridis(length(weightsBeta),option = "D")[rev(rank(weightsBeta))],main = "Beta-distributed Weights")
-# for(i in 1:length(voronoiOut$segments)){
-#
-#   for(j in 1:length(voronoiOut$segments[[i]])){
-#
-#     if(any(is.nan(voronoiOut$segments[[i]][[j]]))){
-#       next()
-#     } else {
-#       lines(x = c(voronoiOut$segments[[i]][[j]][1],voronoiOut$segments[[i]][[j]][3]),
-#             y = c(voronoiOut$segments[[i]][[j]][2],voronoiOut$segments[[i]][[j]][4]))
-#     }
-#
-#   }
-#
-#
-# }
