@@ -57,6 +57,51 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// test2
+void test2();
+RcppExport SEXP ComputationalGeometry_test2() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test2();
+    return R_NilValue;
+END_RCPP
+}
+// test3
+void test3();
+RcppExport SEXP ComputationalGeometry_test3() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test3();
+    return R_NilValue;
+END_RCPP
+}
+// test4
+void test4();
+RcppExport SEXP ComputationalGeometry_test4() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test4();
+    return R_NilValue;
+END_RCPP
+}
+// test5
+void test5();
+RcppExport SEXP ComputationalGeometry_test5() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test5();
+    return R_NilValue;
+END_RCPP
+}
+// test6bis
+void test6bis();
+RcppExport SEXP ComputationalGeometry_test6bis() {
+BEGIN_RCPP
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    test6bis();
+    return R_NilValue;
+END_RCPP
+}
 // voronoiTreemap
 Rcpp::List voronoiTreemap(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY, const Rcpp::NumericVector& Weights, const double& minX, const double& minY, const double& maxX, const double& maxY);
 RcppExport SEXP ComputationalGeometry_voronoiTreemap(SEXP coordXSEXP, SEXP coordYSEXP, SEXP WeightsSEXP, SEXP minXSEXP, SEXP minYSEXP, SEXP maxXSEXP, SEXP maxYSEXP) {
@@ -92,6 +137,11 @@ static const R_CallMethodDef CallEntries[] = {
     {"ComputationalGeometry_BoundedWeightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedWeightedVoronoi, 7},
     {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
     {"ComputationalGeometry_test1", (DL_FUNC) &ComputationalGeometry_test1, 0},
+    {"ComputationalGeometry_test2", (DL_FUNC) &ComputationalGeometry_test2, 0},
+    {"ComputationalGeometry_test3", (DL_FUNC) &ComputationalGeometry_test3, 0},
+    {"ComputationalGeometry_test4", (DL_FUNC) &ComputationalGeometry_test4, 0},
+    {"ComputationalGeometry_test5", (DL_FUNC) &ComputationalGeometry_test5, 0},
+    {"ComputationalGeometry_test6bis", (DL_FUNC) &ComputationalGeometry_test6bis, 0},
     {"ComputationalGeometry_voronoiTreemap", (DL_FUNC) &ComputationalGeometry_voronoiTreemap, 7},
     {"ComputationalGeometry_UnboundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_UnboundedUnweightedVoronoi, 2},
     {NULL, NULL, 0}

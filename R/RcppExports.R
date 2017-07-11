@@ -41,6 +41,31 @@ test1 <- function() {
     invisible(.Call('ComputationalGeometry_test1', PACKAGE = 'ComputationalGeometry'))
 }
 
+#' @export
+test2 <- function() {
+    invisible(.Call('ComputationalGeometry_test2', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test3 <- function() {
+    invisible(.Call('ComputationalGeometry_test3', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test4 <- function() {
+    invisible(.Call('ComputationalGeometry_test4', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test5 <- function() {
+    invisible(.Call('ComputationalGeometry_test5', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test6bis <- function() {
+    invisible(.Call('ComputationalGeometry_test6bis', PACKAGE = 'ComputationalGeometry'))
+}
+
 #' Voronoi Treemap Algorithm
 #'
 #' See \url{https://www.stat.auckland.ac.nz/~paul/Reports/VoronoiTreemap/voronoiTreeMap.html} for algorithm details.

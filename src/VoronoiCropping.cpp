@@ -98,6 +98,8 @@ void test1()
   }
 }
 
+//' @export
+// [[Rcpp::export]]
 void test2()
 {
   std::cout << "test2" <<std::endl;
@@ -117,6 +119,8 @@ void test2()
   CGAL_assertion( d.is_valid(false,3) );
 }
 
+//' @export
+// [[Rcpp::export]]
 void test3()
 {
   std::cout << "test3" <<std::endl;
@@ -170,6 +174,8 @@ void test3()
   }
 }
 
+//' @export
+// [[Rcpp::export]]
 void test4()
 {
   std::cout << "test4" <<std::endl;
@@ -199,6 +205,8 @@ void test4()
   }
 }
 
+//' @export
+// [[Rcpp::export]]
 void test5()
 {
   std::cout << "test5" <<std::endl;
@@ -242,6 +250,8 @@ void test6()
   CGAL_assertion( d.is_valid(false,3) );
 }
 
+//' @export
+// [[Rcpp::export]]
 void test6bis()
 {
   std::cout << "test6bis" <<std::endl;
