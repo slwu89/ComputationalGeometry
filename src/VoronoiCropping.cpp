@@ -55,6 +55,8 @@ bool check(const HDS& hds, std::size_t v, std::size_t e, std::size_t f)
   return res;
 }
 
+//' @export
+// [[Rcpp::export]]
 void test1()
 {
   std::cout << "test1" <<std::endl;

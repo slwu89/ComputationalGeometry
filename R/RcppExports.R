@@ -36,6 +36,11 @@ rcpp_hello <- function() {
     .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
 }
 
+#' @export
+test1 <- function() {
+    invisible(.Call('ComputationalGeometry_test1', PACKAGE = 'ComputationalGeometry'))
+}
+
 #' Voronoi Treemap Algorithm
 #'
 #' See \url{https://www.stat.auckland.ac.nz/~paul/Reports/VoronoiTreemap/voronoiTreeMap.html} for algorithm details.
