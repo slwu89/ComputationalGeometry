@@ -32,11 +32,6 @@ BoundedWeightedVoronoi <- function(coordX, coordY, Weights, minX, minY, maxX, ma
 }
 
 #' @export
-rcpp_hello <- function() {
-    .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
-}
-
-#' @export
 test1 <- function() {
     invisible(.Call('ComputationalGeometry_test1', PACKAGE = 'ComputationalGeometry'))
 }
@@ -66,6 +61,23 @@ test6bis <- function() {
     invisible(.Call('ComputationalGeometry_test6bis', PACKAGE = 'ComputationalGeometry'))
 }
 
+#' Unbounded Unweighted Voronoi Diagram
+#'
+#' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
+#'
+#' @param coordX numeric vector of x coordinates
+#' @param coordY numeric vector of y coordinates
+#'
+#' @export
+UnboundedUnweightedVoronoi <- function(coordX, coordY) {
+    .Call('ComputationalGeometry_UnboundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY)
+}
+
+#' @export
+rcpp_hello <- function() {
+    .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
+}
+
 #' Voronoi Treemap Algorithm
 #'
 #' See \url{https://www.stat.auckland.ac.nz/~paul/Reports/VoronoiTreemap/voronoiTreeMap.html} for algorithm details.
@@ -77,17 +89,5 @@ test6bis <- function() {
 #' @export
 voronoiTreemap <- function(coordX, coordY, Weights, minX, minY, maxX, maxY) {
     .Call('ComputationalGeometry_voronoiTreemap', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
-}
-
-#' Unbounded Unweighted Voronoi Diagram
-#'
-#' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
-#'
-#' @param coordX numeric vector of x coordinates
-#' @param coordY numeric vector of y coordinates
-#'
-#' @export
-UnboundedUnweightedVoronoi <- function(coordX, coordY) {
-    .Call('ComputationalGeometry_UnboundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY)
 }
 

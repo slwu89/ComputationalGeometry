@@ -38,16 +38,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rcpp_hello
-List rcpp_hello();
-RcppExport SEXP ComputationalGeometry_rcpp_hello() {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(rcpp_hello());
-    return rcpp_result_gen;
-END_RCPP
-}
 // test1
 void test1();
 RcppExport SEXP ComputationalGeometry_test1() {
@@ -102,6 +92,28 @@ BEGIN_RCPP
     return R_NilValue;
 END_RCPP
 }
+// UnboundedUnweightedVoronoi
+Rcpp::List UnboundedUnweightedVoronoi(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY);
+RcppExport SEXP ComputationalGeometry_UnboundedUnweightedVoronoi(SEXP coordXSEXP, SEXP coordYSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordX(coordXSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordY(coordYSEXP);
+    rcpp_result_gen = Rcpp::wrap(UnboundedUnweightedVoronoi(coordX, coordY));
+    return rcpp_result_gen;
+END_RCPP
+}
+// rcpp_hello
+List rcpp_hello();
+RcppExport SEXP ComputationalGeometry_rcpp_hello() {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    rcpp_result_gen = Rcpp::wrap(rcpp_hello());
+    return rcpp_result_gen;
+END_RCPP
+}
 // voronoiTreemap
 Rcpp::List voronoiTreemap(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY, const Rcpp::NumericVector& Weights, const double& minX, const double& minY, const double& maxX, const double& maxY);
 RcppExport SEXP ComputationalGeometry_voronoiTreemap(SEXP coordXSEXP, SEXP coordYSEXP, SEXP WeightsSEXP, SEXP minXSEXP, SEXP minYSEXP, SEXP maxXSEXP, SEXP maxYSEXP) {
@@ -119,31 +131,19 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// UnboundedUnweightedVoronoi
-Rcpp::List UnboundedUnweightedVoronoi(const Rcpp::NumericVector& coordX, const Rcpp::NumericVector& coordY);
-RcppExport SEXP ComputationalGeometry_UnboundedUnweightedVoronoi(SEXP coordXSEXP, SEXP coordYSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordX(coordXSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericVector& >::type coordY(coordYSEXP);
-    rcpp_result_gen = Rcpp::wrap(UnboundedUnweightedVoronoi(coordX, coordY));
-    return rcpp_result_gen;
-END_RCPP
-}
 
 static const R_CallMethodDef CallEntries[] = {
     {"ComputationalGeometry_BoundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedUnweightedVoronoi, 6},
     {"ComputationalGeometry_BoundedWeightedVoronoi", (DL_FUNC) &ComputationalGeometry_BoundedWeightedVoronoi, 7},
-    {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
     {"ComputationalGeometry_test1", (DL_FUNC) &ComputationalGeometry_test1, 0},
     {"ComputationalGeometry_test2", (DL_FUNC) &ComputationalGeometry_test2, 0},
     {"ComputationalGeometry_test3", (DL_FUNC) &ComputationalGeometry_test3, 0},
     {"ComputationalGeometry_test4", (DL_FUNC) &ComputationalGeometry_test4, 0},
     {"ComputationalGeometry_test5", (DL_FUNC) &ComputationalGeometry_test5, 0},
     {"ComputationalGeometry_test6bis", (DL_FUNC) &ComputationalGeometry_test6bis, 0},
-    {"ComputationalGeometry_voronoiTreemap", (DL_FUNC) &ComputationalGeometry_voronoiTreemap, 7},
     {"ComputationalGeometry_UnboundedUnweightedVoronoi", (DL_FUNC) &ComputationalGeometry_UnboundedUnweightedVoronoi, 2},
+    {"ComputationalGeometry_rcpp_hello", (DL_FUNC) &ComputationalGeometry_rcpp_hello, 0},
+    {"ComputationalGeometry_voronoiTreemap", (DL_FUNC) &ComputationalGeometry_voronoiTreemap, 7},
     {NULL, NULL, 0}
 };
 
