@@ -15,7 +15,7 @@
 #'
 #' @export
 BoundedUnweightedVoronoi <- function(coordX, coordY, minX, minY, maxX, maxY) {
-    .Call('ComputationalGeometry_BoundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, minX, minY, maxX, maxY)
+    .Call('_ComputationalGeometry_BoundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, minX, minY, maxX, maxY)
 }
 
 #' Weighted Voronoi Diagram
@@ -28,54 +28,42 @@ BoundedUnweightedVoronoi <- function(coordX, coordY, minX, minY, maxX, maxY) {
 #'
 #' @export
 BoundedWeightedVoronoi <- function(coordX, coordY, Weights, minX, minY, maxX, maxY) {
-    .Call('ComputationalGeometry_BoundedWeightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
-}
-
-#' @export
-test1 <- function() {
-    invisible(.Call('ComputationalGeometry_test1', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' @export
-test2 <- function() {
-    invisible(.Call('ComputationalGeometry_test2', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' @export
-test3 <- function() {
-    invisible(.Call('ComputationalGeometry_test3', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' @export
-test4 <- function() {
-    invisible(.Call('ComputationalGeometry_test4', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' @export
-test5 <- function() {
-    invisible(.Call('ComputationalGeometry_test5', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' @export
-test6bis <- function() {
-    invisible(.Call('ComputationalGeometry_test6bis', PACKAGE = 'ComputationalGeometry'))
-}
-
-#' Unbounded Unweighted Voronoi Diagram
-#'
-#' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
-#'
-#' @param coordX numeric vector of x coordinates
-#' @param coordY numeric vector of y coordinates
-#'
-#' @export
-UnboundedUnweightedVoronoi <- function(coordX, coordY) {
-    .Call('ComputationalGeometry_UnboundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY)
+    .Call('_ComputationalGeometry_BoundedWeightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
 }
 
 #' @export
 rcpp_hello <- function() {
-    .Call('ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
+    .Call('_ComputationalGeometry_rcpp_hello', PACKAGE = 'ComputationalGeometry')
+}
+
+#' @export
+test1 <- function() {
+    invisible(.Call('_ComputationalGeometry_test1', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test2 <- function() {
+    invisible(.Call('_ComputationalGeometry_test2', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test3 <- function() {
+    invisible(.Call('_ComputationalGeometry_test3', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test4 <- function() {
+    invisible(.Call('_ComputationalGeometry_test4', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test5 <- function() {
+    invisible(.Call('_ComputationalGeometry_test5', PACKAGE = 'ComputationalGeometry'))
+}
+
+#' @export
+test6bis <- function() {
+    invisible(.Call('_ComputationalGeometry_test6bis', PACKAGE = 'ComputationalGeometry'))
 }
 
 #' Voronoi Treemap Algorithm
@@ -88,6 +76,18 @@ rcpp_hello <- function() {
 #'
 #' @export
 voronoiTreemap <- function(coordX, coordY, Weights, minX, minY, maxX, maxY) {
-    .Call('ComputationalGeometry_voronoiTreemap', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
+    .Call('_ComputationalGeometry_voronoiTreemap', PACKAGE = 'ComputationalGeometry', coordX, coordY, Weights, minX, minY, maxX, maxY)
+}
+
+#' Unbounded Unweighted Voronoi Diagram
+#'
+#' Produce a weighted Voronoi diagram. This is a wrapper for the CGAL library, see \url{http://doc.cgal.org/latest/Apollonius_graph_2/index.html} for algorithm details.
+#'
+#' @param coordX numeric vector of x coordinates
+#' @param coordY numeric vector of y coordinates
+#'
+#' @export
+UnboundedUnweightedVoronoi <- function(coordX, coordY) {
+    .Call('_ComputationalGeometry_UnboundedUnweightedVoronoi', PACKAGE = 'ComputationalGeometry', coordX, coordY)
 }
 

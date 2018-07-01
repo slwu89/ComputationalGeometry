@@ -59,18 +59,18 @@ for(i in 1:length(bvd$segments)){
 nPts = 50
 x = runif(n = nPts,min = 0,max = 100)
 y = runif(n = nPts,min = 0,max = 100)
-minX = min(x)-0.01
-minY = min(y)-0.01
-maxX = max(x)+0.01
-maxY = max(y)+0.01
-weights = rnorm(n = nPts,mean = 0,sd = 10)
+minX = min(x)-10
+minY = min(y)-10
+maxX = max(x)+10
+maxY = max(y)+10
+weights = rlnorm(n = nPts,mean = 0,sd = 1)
 
 voronoiGaussian = ComputationalGeometry::BoundedWeightedVoronoi(coordX = x,coordY = y,Weights = weights,
                                                             minX = minX,minY = minY,
                                                             maxX = maxX,maxY = maxY)
 
 plot(x,y,pch=16,cex=0.75,xlim=c(minX,maxX),ylim=c(minY,maxY),
-     col = viridis(length(weights),option = "D",end = 0.7)[factor(weights)],main = "Gaussian-distributed Weights")
+     col = viridis(length(weights),option = "D",end = 0.7)[factor(weights)],main = "Log-Gaussian distributed weights")
 text(x,y,labels = round(weights,2),col = viridis(length(weights),option = "D",end = 0.7)[factor(weights)],pos = 1)
 for(i in 1:length(voronoiGaussian$segments)){
   if(any(is.nan(voronoiGaussian$segments[[i]]))){
